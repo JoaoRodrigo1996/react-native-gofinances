@@ -12,7 +12,7 @@ export const Header = styled.View`
   height: ${RFValue(115)}px;
   align-items: center;
   justify-content: flex-end;
-  padding-bottom: 20px;
+  padding-bottom: ${RFValue(20)}px;
 `;
 
 export const Title = styled.Text`
