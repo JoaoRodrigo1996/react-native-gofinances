@@ -10,7 +10,7 @@ import {
 
 import { defaultTheme } from "./src/global/styles/theme";
 
-import { Register } from "./src/screens/Register";
+import { CategorySelect } from "./src/screens/CategorySelect";
 
 import * as SplashScreen from "expo-splash-screen";
 
@@ -30,7 +30,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Register />
+      <CategorySelect />
     </ThemeProvider>
   );
 }
