@@ -13,10 +13,10 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import { defaultTheme } from "./src/global/styles/theme";
 
-import { Register } from "./src/screens/Register";
 import { AppRoutes } from "./src/routes/app.routes";
 
 import * as SplashScreen from "expo-splash-screen";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
   SplashScreen.preventAutoHideAsync();
@@ -33,10 +33,12 @@ export default function App() {
   SplashScreen.hideAsync();
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <NavigationContainer>
-        <AppRoutes />
-      </NavigationContainer>
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider theme={defaultTheme}>
+        <NavigationContainer>
+          <AppRoutes />
+        </NavigationContainer>
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
