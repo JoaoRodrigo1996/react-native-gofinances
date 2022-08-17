@@ -3,10 +3,15 @@ import { Keyboard, Modal, Alert } from "react-native";
 
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import uuid from "react-native-uuid";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from "@react-navigation/native";
 
 import { Button } from "../../components/Forms/Button";
 import { CategorySelectButton } from "../../components/Forms/CategorySelectButton";
@@ -41,16 +46,19 @@ export function Register() {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
   const [transactionType, setTransactionType] = useState("");
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
+  const { navigate }: NavigationProp<ParamListBase> = useNavigation();
   const [category, setCategory] = useState({
     key: "category",
     name: "Categoria",
   });
+
   const dataKey = "@gofinances:transactions";
 
   function handleTransactionTypesSelecte(type: "up" | "down") {
@@ -75,10 +83,12 @@ export function Register() {
     }
 
     const newTransaction = {
+      id: String(uuid.v4()),
       name: form.name,
       amount: form.amount,
       transactionType,
       category: category.key,
+      data: new Date(),
     };
 
     try {
@@ -86,6 +96,12 @@ export function Register() {
       const currentData = data ? JSON.parse(data) : [];
 
       const dataFormatted = [...currentData, newTransaction];
+
+      setTransactionType("");
+      setCategory({ key: "category", name: "categoria" });
+      reset();
+
+      navigate("Listagem");
 
       await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted));
     } catch (error) {
