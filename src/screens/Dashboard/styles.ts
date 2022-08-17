@@ -1,15 +1,22 @@
-import { FlatList, FlatListProps } from "react-native";
 import styled from "styled-components/native";
+import { FlatList, FlatListProps } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import {
   getBottomSpace,
   getStatusBarHeight,
 } from "react-native-iphone-x-helper";
-import { BorderlessButton } from "react-native-gesture-handler";
+import {
+  BorderlessButton,
+  BorderlessButtonProps,
+} from "react-native-gesture-handler";
 
 import { DataListProps } from ".";
 
 import { Feather } from "@expo/vector-icons";
+
+interface ButtonProps extends BorderlessButtonProps {
+  children: React.ReactNode;
+}
 
 export const Container = styled.View`
   flex: 1;
@@ -63,9 +70,7 @@ export const UserName = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
 `;
 
-export const LogoutButton = styled(
-  BorderlessButton as new (props: any) => BorderlessButton
-)``;
+export const LogoutButton = styled(BorderlessButton)<ButtonProps>``;
 
 export const Icon = styled(Feather)`
   color: ${({ theme }) => theme.colors.secondary};
