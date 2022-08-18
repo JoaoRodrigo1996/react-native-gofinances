@@ -59,8 +59,6 @@ export function Register() {
     name: "Categoria",
   });
 
-  const dataKey = "@gofinances:transactions";
-
   function handleTransactionTypesSelecte(type: "up" | "down") {
     setTransactionType(type);
   }
@@ -92,6 +90,8 @@ export function Register() {
     };
 
     try {
+      const dataKey = "@gofinances:transactions";
+
       const data = await AsyncStorage.getItem(dataKey);
       const currentData = data ? JSON.parse(data) : [];
 
@@ -109,15 +109,6 @@ export function Register() {
       Alert.alert("Não foi possivel salvar.");
     }
   }
-
-  useEffect(() => {
-    async function loadData() {
-      const data = await AsyncStorage.getItem(dataKey);
-      console.log(JSON.parse(data));
-    }
-
-    loadData();
-  }, []);
 
   return (
     <TouchableWithoutFeedback
