@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { HighlightCard } from "../../components/HighlightCard";
@@ -23,6 +23,7 @@ import {
   TransactionsList,
   LogoutButton,
 } from "./styles";
+import { useFocusEffect } from "@react-navigation/native";
 
 export interface DataListProps extends TransactionCardData {
   id: string;
@@ -55,18 +56,25 @@ export function Dashboard() {
           amount,
           type: item.type,
           category: item.category,
-          data,
+          date,
         };
       }
     );
 
     setData(transactionsFormatted);
   }
-  console.log(data);
 
   useEffect(() => {
+    // const dataKey = "@gofinances:transactions";
+    // AsyncStorage.removeItem(dataKey);
     loadTransactions();
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadTransactions();
+    }, [])
+  );
 
   return (
     <Container>

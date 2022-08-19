@@ -59,7 +59,7 @@ export function Register() {
     name: "Categoria",
   });
 
-  function handleTransactionTypesSelecte(type: "up" | "down") {
+  function handleTransactionTypesSelect(type: "positive" | "negative") {
     setTransactionType(type);
   }
 
@@ -84,9 +84,9 @@ export function Register() {
       id: String(uuid.v4()),
       name: form.name,
       amount: form.amount,
-      transactionType,
+      type: transactionType,
       category: category.key,
-      data: new Date(),
+      date: new Date(),
     };
 
     try {
@@ -97,16 +97,16 @@ export function Register() {
 
       const dataFormatted = [...currentData, newTransaction];
 
-      setTransactionType("");
-      setCategory({ key: "category", name: "categoria" });
+      await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted));
+
       reset();
+      setTransactionType("");
+      setCategory({ key: "category", name: "Categoria" });
 
       navigate("Listagem");
-
-      await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted));
     } catch (error) {
       console.log(error);
-      Alert.alert("Não foi possivel salvar.");
+      return Alert.alert("Não foi possivel salvar.");
     }
   }
 
@@ -143,14 +143,14 @@ export function Register() {
               <TransactionTypeButton
                 type="up"
                 title="Income"
-                onPress={() => handleTransactionTypesSelecte("up")}
-                isActive={transactionType === "up"}
+                onPress={() => handleTransactionTypesSelect("positive")}
+                isActive={transactionType === "positive"}
               />
               <TransactionTypeButton
                 type="down"
                 title="Outcome"
-                onPress={() => handleTransactionTypesSelecte("down")}
-                isActive={transactionType === "down"}
+                onPress={() => handleTransactionTypesSelect("negative")}
+                isActive={transactionType === "negative"}
               />
             </TransactionTypes>
             <CategorySelectButton

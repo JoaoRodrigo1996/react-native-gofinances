@@ -9,7 +9,7 @@ import { Container, Error } from "./styles";
 interface InputFormProps extends TextInputProps {
   control: Control;
   name: string;
-  error: string | undefined;
+  error: string;
 }
 
 export function InputForm({ control, name, error, ...rest }: InputFormProps) {
