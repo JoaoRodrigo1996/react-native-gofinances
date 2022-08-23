@@ -19,6 +19,7 @@ import { AppRoutes } from "./src/routes/app.routes";
 
 import * as SplashScreen from "expo-splash-screen";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { StatusBar } from "react-native";
 
 export default function App() {
   SplashScreen.preventAutoHideAsync();
@@ -38,6 +39,7 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider theme={defaultTheme}>
         <NavigationContainer>
+          <StatusBar barStyle="light-content" />
           <AppRoutes />
         </NavigationContainer>
       </ThemeProvider>
