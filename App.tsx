@@ -17,6 +17,8 @@ import { defaultTheme } from "./src/global/styles/theme";
 
 import { AppRoutes } from "./src/routes/app.routes";
 
+import { SignIn } from "./src/screens/SignIn";
+
 import * as SplashScreen from "expo-splash-screen";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { StatusBar } from "react-native";
@@ -40,7 +42,7 @@ export default function App() {
       <ThemeProvider theme={defaultTheme}>
         <NavigationContainer>
           <StatusBar barStyle="light-content" />
-          <AppRoutes />
+          <SignIn />
         </NavigationContainer>
       </ThemeProvider>
     </GestureHandlerRootView>
