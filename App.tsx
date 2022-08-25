@@ -15,11 +15,9 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import { defaultTheme } from "./src/global/styles/theme";
 
+import { AuthProvider } from "./src/hooks/auth";
 import { AppRoutes } from "./src/routes/app.routes";
-
 import { SignIn } from "./src/screens/SignIn";
-
-import { AuthContext } from "./src/contexts/AuthContext";
 
 import * as SplashScreen from "expo-splash-screen";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -44,9 +42,9 @@ export default function App() {
       <ThemeProvider theme={defaultTheme}>
         <NavigationContainer>
           <StatusBar barStyle="light-content" />
-          <AuthContext.Provider value={["Rodrigo"]}>
+          <AuthProvider>
             <SignIn />
-          </AuthContext.Provider>
+          </AuthProvider>
         </NavigationContainer>
       </ThemeProvider>
     </GestureHandlerRootView>
