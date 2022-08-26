@@ -3,6 +3,7 @@ import { ActivityIndicator } from "react-native";
 import { useTheme } from "styled-components";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { useAuth } from "../../hooks/auth";
 import { HighlightCard } from "../../components/HighlightCard";
 import {
   TransactionCard,
@@ -44,6 +45,7 @@ interface HighlightData {
 }
 
 export function Dashboard() {
+  const { signOut, user } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [transactions, setTransactions] = useState<DataListProps[]>([]);
   const [highlightData, setHighlightData] = useState<HighlightData>(
@@ -175,19 +177,14 @@ export function Dashboard() {
           <Header>
             <UserWrapper>
               <UserInfo>
-                <Photo
-                  source={{
-                    uri: "https://avatars.githubusercontent.com/u/71795996?v=4",
-                  }}
-                />
-
+                <Photo source={{ uri: user.photo }} />
                 <User>
                   <UserGreeting>Olá, </UserGreeting>
-                  <UserName>Rodrigo</UserName>
+                  <UserName>{user.name}</UserName>
                 </User>
               </UserInfo>
 
-              <LogoutButton>
+              <LogoutButton onPress={signOut}>
                 <Icon name="power" />
               </LogoutButton>
             </UserWrapper>
