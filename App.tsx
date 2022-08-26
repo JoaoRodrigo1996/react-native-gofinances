@@ -11,7 +11,7 @@ import {
   Poppins_500Medium,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
-import { NavigationContainer } from "@react-navigation/native";
+import { Routes } from "./src/routes/index";
 
 import { defaultTheme } from "./src/global/styles/theme";
 
@@ -40,12 +40,10 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider theme={defaultTheme}>
-        <NavigationContainer>
-          <StatusBar barStyle="light-content" />
-          <AuthProvider>
-            <SignIn />
-          </AuthProvider>
-        </NavigationContainer>
+        <StatusBar barStyle="light-content" />
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
   );
