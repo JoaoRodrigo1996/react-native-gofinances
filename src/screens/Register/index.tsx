@@ -13,6 +13,7 @@ import {
   useNavigation,
 } from "@react-navigation/native";
 
+import { useAuth } from "../../hooks/auth";
 import { Button } from "../../components/Forms/Button";
 import { CategorySelectButton } from "../../components/Forms/CategorySelectButton";
 import { InputForm } from "../../components/Forms/InputForm";
@@ -51,6 +52,7 @@ export function Register() {
   } = useForm({
     resolver: yupResolver(schema),
   });
+  const { user } = useAuth();
   const [transactionType, setTransactionType] = useState("");
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
   const { navigate }: NavigationProp<ParamListBase> = useNavigation();
@@ -90,7 +92,7 @@ export function Register() {
     };
 
     try {
-      const dataKey = "@gofinances:transactions";
+      const dataKey = `@gofinances:transactions_user:${user.id}`;
 
       const data = await AsyncStorage.getItem(dataKey);
       const currentData = data ? JSON.parse(data) : [];
